@@ -5,7 +5,7 @@ export async function createProcInstService(procDefKey, variables) {
         return await createProcessInstance({ procDefKey: procDefKey, variables: variables })
     }
     catch (error) {
-        throw new Error(error.message)
+        throw new Error('Error communicating with the BPM server when creating a process instance')
     }
 }
 
@@ -15,7 +15,7 @@ export async function completeTaskService(process, advance) {
         return await completeTask(process.processId, advance, process.task)
     }
     catch (error) {
-        throw new Error(error.message)
+        throw new Error('Error communicating with the BPM server when completing a task')
     }
 }
 
@@ -24,6 +24,6 @@ export async function cancelProcessSercive(process){
         return await cancelProcess(process.processId)
     }
     catch (error) {
-        throw new Error(error.message)
+        throw new Error('Error communicating with the BPM server when canceling a process')
     }
 }

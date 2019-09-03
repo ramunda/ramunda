@@ -38,25 +38,23 @@ export default class DefaultAndRadioButtonsForm extends React.Component {
 
     async handleSubmit(advance) {
         const process = this.state.process
+        if (!this.props.onNext && !this.props.onBack) throw new Error(`No function ${advance ? 'next' : 'back'} provided`)
+        if (this.props.customServer) return advance ? this.props.onNext(process) : this.props.onBack(process)
         try {
             const task = await completeTaskService(process, advance)
             process.task = task
-            if (this.props.onNext || this.props.onBack) {
-                return advance ?  this.props.onNext(process) : this.props.onBack(process)
-            } else {
-                throw new Error(`No function ${advance ? 'next' : 'back'} provided`)
-            }
+            return advance ? this.props.onNext(process) : this.props.onBack(process)
         } catch (error) {
             this.setState({ error: error })
         }
     }
 
     async handleCancel() {
+        if (!this.props.onCancel) throw new Error(`No function cancel provided`)
+        if (this.props.customServer) return this.props.onCancel()
         try {
             await cancelProcessSercive(this.state.process)
-            if (this.props.onCancel) {
-                return this.props.onCancel()
-            }
+            return this.props.onCancel()
         } catch (error) {
             this.setState({ error: error })
         }
