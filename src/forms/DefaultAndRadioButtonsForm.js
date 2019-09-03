@@ -5,6 +5,9 @@ import RadioButtonsInput from '../components/RadioButtonsInput'
 import { createProcInstService, completeTaskService, cancelProcessSercive } from '../service/ServiceLayer'
 import { filterDefaultInputs, filterRadioButtons } from '../service/InputTypesFilter'
 
+/**
+ * Component for a form containing default input and radio buttons
+ */
 export default class DefaultAndRadioButtonsForm extends React.Component {
 
     constructor(props) {
@@ -19,6 +22,9 @@ export default class DefaultAndRadioButtonsForm extends React.Component {
         
     }
 
+     /**
+     * In case the props.createInstance is present a process instance is created
+     */
     async componentDidMount() {
         if (this.props.creatInstance) {
             try {
@@ -30,12 +36,22 @@ export default class DefaultAndRadioButtonsForm extends React.Component {
         }
     }
 
+      /**
+     * Deals with the changes of an input from the form and updates the parameter of the task associated with that input
+     * @param {*} name input name
+     * @param {*} value input value
+     */
     handleChange(name, value) {
         var process = this.state.process
         process.task.parameters[name].value = value
         this.setState({ process: process })
     }
 
+     /**
+     * If customServer is true, handleSubmit only calls a function passed by the webapp, else its 
+     * also requested a complete task from the BPM server
+     * @param {*} advance value defines if it is requested the next or the previous task
+     */
     async handleSubmit(advance) {
         const process = this.state.process
         if (!this.props.onNext && !this.props.onBack) throw new Error(`No function ${advance ? 'next' : 'back'} provided`)
@@ -49,6 +65,10 @@ export default class DefaultAndRadioButtonsForm extends React.Component {
         }
     }
 
+    /**
+     * If customServer is true, handleCancel only calls a function passed by the webapp, else its 
+     * also requested a cancel task from the BPM server
+     */
     async handleCancel() {
         if (!this.props.onCancel) throw new Error(`No function cancel provided`)
         if (this.props.customServer) return this.props.onCancel()

@@ -2,6 +2,9 @@ import React from 'react';
 import 'semantic-ui-css/semantic.min.css'
 import { Form, Dropdown } from 'semantic-ui-react'
 
+/**
+ * Component for a input of type drop down
+ */
 export default class DropdownInput extends React.Component {
 
     constructor(props){

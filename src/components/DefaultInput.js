@@ -2,6 +2,9 @@ import React from 'react'
 import 'semantic-ui-css/semantic.min.css'
 import { Form } from 'semantic-ui-react'
 
+/**
+ * Component for a input of type default
+ */
 export default class DefaultInput extends React.Component {
 
     constructor(props) {

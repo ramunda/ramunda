@@ -2,7 +2,10 @@ import React from 'react';
 import { Container, Message } from 'semantic-ui-react'
 import { createProcInstService, completeTaskService, cancelProcessSercive } from '../service/ServiceLayer'
 
-export default class DefaultAndRadioButtonsForm extends React.Component {
+/**
+ * Component that renders a external form
+ */
+export default class ExternalForm extends React.Component {
 
     constructor(props) {
         super(props)
@@ -14,6 +17,9 @@ export default class DefaultAndRadioButtonsForm extends React.Component {
         this.handleCancel = this.handleCancel.bind(this)
     }
 
+     /**
+     * In case the props.createInstance is present a process instance is created
+     */
     async componentDidMount() {
         if (this.props.creatInstance) {
             try {
@@ -25,6 +31,13 @@ export default class DefaultAndRadioButtonsForm extends React.Component {
         }
     }
 
+    /**
+     * Function called from rendered external React component.
+     * If customServer is true, handleSubmit only calls a function passed by the webapp, else its 
+     * also requested a complete task from the BPM server
+     * @param {*} process domain object representing the process instance
+     * @param {*} advance value defines if it is requested the next or the previous task
+     */
     async handleSubmit(process, advance) {
         if (!this.props.onNext && !this.props.onBack) throw new Error(`No function ${advance ? 'next' : 'back'} provided`)
         if (this.props.customServer) return advance ? this.props.onNext(process) : this.props.onBack(process)
@@ -38,6 +51,12 @@ export default class DefaultAndRadioButtonsForm extends React.Component {
         }
     }
 
+    /**
+     * Function called from rendered external React component.
+     * If customServer is true, handleCancel only calls a function passed by the webapp, else its 
+     * also requested a cancel task from the BPM server
+     * @param {*} process domain object representing the process instance
+     */
     async handleCancel(process) {
         if (!this.props.onCancel) throw new Error(`No function cancel provided`)
         if (this.props.customServer) return this.props.onCancel()
