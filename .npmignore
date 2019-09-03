@@ -1,0 +1,12 @@
+# Directories to ignore
+src/
+test/
+coverage/
+
+# Files to ignore
+.npmignore
+.babelrc
+.travis.yml
+.gitignore
+LICENSE
+README.md
