@@ -1,6 +1,6 @@
 {
   "name": "ramunda",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A library that makes your Camunda BPM forms",
   "main": "disc/index.js",
   "scripts": {
