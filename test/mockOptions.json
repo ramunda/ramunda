@@ -1,0 +1,62 @@
+{
+    "firstTask":{
+        "radioButtonsInfo":[{
+            "bpmParamName": "toSum",
+            "label": "Operação",
+            "buttonsInfo": [{"label":"Adição", "value": true},{"label":"Subtração", "value": false}]	
+        }]
+    },
+    "firstCustomTask":{
+        "radioButtonsInfo":[{
+            "bpmParamName": "toSum",
+            "label": "Operação",
+            "buttonsInfo": [{"label":"Adição", "value": true},{"label":"Subtração", "value": false}]	
+        }],
+        "defaultInputInfo": [{
+            "bpmParamName": "n1",
+            "label": "Primeiro Número",
+            "type": "number" 
+        },
+        {
+            "bpmParamName": "n2",
+            "label": "Segundo Número",
+            "type": "number" 
+        }]
+    },
+    "SecondCustomTask":{
+        "radioButtonsInfo":[{
+            "bpmParamName": "toSum",
+            "label": "Operação",
+            "buttonsInfo": [{"label":"Adição", "value": true},{"label":"Subtração", "value": false}]	
+        }],
+        "defaultInputInfo": [{
+            "bpmParamName": "n1",
+            "label": "Primeiro Número",
+            "type": "number" 
+        }],
+        "dropdownInfo": [{
+            "bpmParamName": "n2",
+            "label": "Segundo número",
+            "options": [1,2,3,4,5,6]
+        }]
+    },
+    "ThridCustomTask":{
+        "checkboxInfo":[{
+            "bpmParamName": "toSum",
+            "label": "To Add?"	
+        }],
+        "defaultInputInfo": [{
+            "bpmParamName": "n1",
+            "label": "Primeiro Número",
+            "type": "number" 
+        },
+        {
+            "bpmParamName": "n2",
+            "label": "Segundo Número",
+            "type": "number" 
+        }]
+    },
+    "InvisibleCustomTask":{
+        "invisibleParams":["toSum","n1","n2"]
+    }
+}

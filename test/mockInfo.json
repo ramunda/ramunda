@@ -1,0 +1,110 @@
+{
+    "responseCreateProcInstanceSucess": {
+        "procDefKey": "Process_05r67sz",
+        "procInstId": "ea62fe22-cb32-11e9-8a92-48ba4e8ddf7b",
+        "variables": [],
+        "milestones": [
+            "Input",
+            "Show Result"
+        ],
+        "activeTask": {
+            "id": "ea63e885-cb32-11e9-8a92-48ba4e8ddf7b",
+            "inParameters": [
+                {
+                    "key": "n1",
+                    "value": null
+                },
+                {
+                    "key": "n2",
+                    "value": null
+                },
+                {
+                    "key": "toSum",
+                    "value": null
+                }
+            ],
+            "outParameters": [],
+            "milestone": "Input"
+        }
+    },
+    "responseCreateProcInstanceUnsucess": {
+        "error": "Testing error"
+    },
+    "responseNextWithSucess": {
+        "id": "0da06337-cbfd-11e9-a2a8-48ba4e8ddf7b",
+        "inParameters": [],
+        "outParameters": [
+            {
+                "key": "n1",
+                "value": "4"
+            },
+            {
+                "key": "n2",
+                "value": "5"
+            },
+            {
+                "key": "toSum",
+                "value": false
+            },
+            {
+                "key": "result",
+                "value": -1
+            }
+        ],
+        "milestone": "Show Result"
+    },
+    "responseBackWithSucess": {
+        "id": "2121ac80-cbfd-11e9-a2a8-48ba4e8ddf7b",
+        "inParameters": [
+            {
+                "key": "n1",
+                "value": null
+            },
+            {
+                "key": "n2",
+                "value": null
+            },
+            {
+                "key": "toSum",
+                "value": null
+            }
+        ],
+        "outParameters": [],
+        "milestone": "Input"
+    },
+    "responseCancelWithSucess": true,
+    "initProcessVars": [
+        {
+            "key": "user",
+            "value": "test"
+        }
+    ],
+    "processModelMock": {
+        "processId": "126dfb88-cbfe-11e9-a2a8-48ba4e8ddf7b",
+        "task": {
+            "id": "126e229b-cbfe-11e9-a2a8-48ba4e8ddf7b",
+            "parameters": {
+                "n1": {
+                    "value": "",
+                    "readOnly": false,
+                    "type": "w"
+                },
+                "n2": {
+                    "value": "",
+                    "readOnly": false,
+                    "type": "w"
+                },
+                "toSum": {
+                    "value": "",
+                    "readOnly": false,
+                    "type": "w"
+                }
+            },
+            "milestone": "Input"
+        },
+        "milestones": [
+            "Input",
+            "Show Result"
+        ]
+    }
+}

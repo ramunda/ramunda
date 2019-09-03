@@ -1,0 +1,5 @@
+{
+    "createProcessInstance": "http://localhost:1080/camunda/process",
+    "completeTask": "http://localhost:1080/camunda/process/:procInst/next?advance=:advance",
+    "cancelProcess": "http://localhost:1080/camunda/process/:procInst/cancel"
+}
