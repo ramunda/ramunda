@@ -1,6 +1,6 @@
 {
   "name": "ramunda",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A library that makes your Camunda BPM forms",
   "main": "disc/index.js",
   "scripts": {
@@ -45,7 +45,7 @@
     "Node"
   ],
   "author": "João Martins, João Pereira, Tiago Silva",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/ramunda/ramunda/issues"
   },
