@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - "10"
+cache:
+  directories:
+  - node_modules
+script:
+  - npm run test:coverage
+  - npm run build
+deploy:
+  provider: pages
+  skip_cleanup: false
+  github_token: $github_token
+  local_dir: disc
+  on:
+    branch: master
+
+before_install:
+  - pip install --user codecov
+after_success:
+  - codecov --file coverage/lcov.info --disable search
