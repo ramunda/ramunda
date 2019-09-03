@@ -1,0 +1,69 @@
+{
+  "name": "ramunda",
+  "version": "1.0.0",
+  "description": "A library that makes your Camunda BPM forms",
+  "main": "disc/index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/babel src --out-dir disc --copy-files",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.87.1",
+    "cross-fetch": "^3.0.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.9.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.4.0",
+    "istanbul": "^0.4.5",
+    "jest": "^24.9.0",
+    "jest-css-modules": "^2.1.0",
+    "nock": "^10.0.6",
+    "react": "^16.6.1",
+    "react-dom": "^16.6.3"
+  },
+  "peerDependencies": {
+    "react": "^16.6.1",
+    "react-dom": "^16.6.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramunda/ramunda.git"
+  },
+  "keywords": [
+    "React",
+    "Camunda",
+    "BPM",
+    "Node"
+  ],
+  "author": "João Martins, João Pereira, Tiago Silva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ramunda/ramunda/issues"
+  },
+  "homepage": "https://github.com/JoaoPauloMartins001/ramunda#readme",
+  "jest": {
+    "transform": {
+      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest"
+    },
+    "setupFiles": [
+      "./test/setup.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sss|styl)$": "<rootDir>/node_modules/jest-css-modules"
+    },
+    "moduleDirectories": [
+      "node_modules",
+      "src",
+      "test"
+    ]
+  }
+}
