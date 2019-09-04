@@ -45,17 +45,20 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var DefaultAndRadioButtonsForm =
+/**
+ * Component for a form containing default input, radio buttons, dropdowns and checkboxes
+ */
+var CustomForm =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(DefaultAndRadioButtonsForm, _React$Component);
+  _inherits(CustomForm, _React$Component);
 
-  function DefaultAndRadioButtonsForm(props) {
+  function CustomForm(props) {
     var _this;
 
-    _classCallCheck(this, DefaultAndRadioButtonsForm);
+    _classCallCheck(this, CustomForm);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(DefaultAndRadioButtonsForm).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(CustomForm).call(this, props));
     _this.state = {
       process: _this.props.process
     };
@@ -64,8 +67,12 @@ function (_React$Component) {
     _this.handleCancel = _this.handleCancel.bind(_assertThisInitialized(_this));
     return _this;
   }
+  /**
+   * In case the props.createInstance is present a process instance is created
+   */
 
-  _createClass(DefaultAndRadioButtonsForm, [{
+
+  _createClass(CustomForm, [{
     key: "componentDidMount",
     value: function () {
       var _componentDidMount = _asyncToGenerator(
@@ -114,6 +121,12 @@ function (_React$Component) {
 
       return componentDidMount;
     }()
+    /**
+     * Deals with the changes of an input from the form and updates the parameter of the task associated with that input
+     * @param {*} name input name
+     * @param {*} value input value
+     */
+
   }, {
     key: "handleChange",
     value: function handleChange(name, value) {
@@ -123,6 +136,12 @@ function (_React$Component) {
         process: process
       });
     }
+    /**
+     * If customServer is true, handleSubmit only calls a function passed by the webapp, else its 
+     * also requested a complete task from the BPM server
+     * @param {*} advance value defines if it is requested the next or the previous task
+     */
+
   }, {
     key: "handleSubmit",
     value: function () {
@@ -135,31 +154,35 @@ function (_React$Component) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 process = this.state.process;
-                _context2.prev = 1;
-                _context2.next = 4;
-                return (0, _ServiceLayer.completeTaskService)(process, advance);
 
-              case 4:
-                task = _context2.sent;
-                process.task = task;
+                if (!(!this.props.onNext && !this.props.onBack)) {
+                  _context2.next = 3;
+                  break;
+                }
 
-                if (!(this.props.onNext || this.props.onBack)) {
-                  _context2.next = 10;
+                throw new Error("No function ".concat(advance ? 'next' : 'back', " provided"));
+
+              case 3:
+                if (!this.props.customServer) {
+                  _context2.next = 5;
                   break;
                 }
 
                 return _context2.abrupt("return", advance ? this.props.onNext(process) : this.props.onBack(process));
 
-              case 10:
-                throw new Error("No function ".concat(advance ? 'next' : 'back', " provided"));
+              case 5:
+                _context2.prev = 5;
+                _context2.next = 8;
+                return (0, _ServiceLayer.completeTaskService)(process, advance);
 
-              case 11:
-                _context2.next = 16;
-                break;
+              case 8:
+                task = _context2.sent;
+                process.task = task;
+                return _context2.abrupt("return", advance ? this.props.onNext(process) : this.props.onBack(process));
 
               case 13:
                 _context2.prev = 13;
-                _context2.t0 = _context2["catch"](1);
+                _context2.t0 = _context2["catch"](5);
                 this.setState({
                   error: _context2.t0
                 });
@@ -169,7 +192,7 @@ function (_React$Component) {
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[1, 13]]);
+        }, _callee2, this, [[5, 13]]);
       }));
 
       function handleSubmit(_x) {
@@ -178,6 +201,11 @@ function (_React$Component) {
 
       return handleSubmit;
     }()
+    /**
+     * If customServer is true, handleCancel only calls a function passed by the webapp, else its 
+     * also requested a cancel task from the BPM server
+     */
+
   }, {
     key: "handleCancel",
     value: function () {
@@ -188,35 +216,42 @@ function (_React$Component) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.prev = 0;
-                _context3.next = 3;
-                return (0, _ServiceLayer.cancelProcessSercive)(this.state.process);
+                if (this.props.onCancel) {
+                  _context3.next = 2;
+                  break;
+                }
 
-              case 3:
-                if (!this.props.onCancel) {
-                  _context3.next = 5;
+                throw new Error("No function cancel provided");
+
+              case 2:
+                if (!this.props.customServer) {
+                  _context3.next = 4;
                   break;
                 }
 
                 return _context3.abrupt("return", this.props.onCancel());
 
-              case 5:
-                _context3.next = 10;
-                break;
+              case 4:
+                _context3.prev = 4;
+                _context3.next = 7;
+                return (0, _ServiceLayer.cancelProcessSercive)(this.state.process);
 
               case 7:
-                _context3.prev = 7;
-                _context3.t0 = _context3["catch"](0);
+                return _context3.abrupt("return", this.props.onCancel());
+
+              case 10:
+                _context3.prev = 10;
+                _context3.t0 = _context3["catch"](4);
                 this.setState({
                   error: _context3.t0
                 });
 
-              case 10:
+              case 13:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, this, [[0, 7]]);
+        }, _callee3, this, [[4, 10]]);
       }));
 
       function handleCancel() {
@@ -245,7 +280,7 @@ function (_React$Component) {
         error = err;
       }
 
-      return _react["default"].createElement(_react["default"].Fragment, null, this.state.process && !error && _react["default"].createElement(_semanticUiReact.Container, null, _react["default"].createElement(_semanticUiReact.Form, null, defaultInputs.map(function (elem, idx) {
+      return _react["default"].createElement(_react["default"].Fragment, null, this.state.process && !error && _react["default"].createElement(_react["default"].Fragment, null, _react["default"].createElement(_semanticUiReact.Form, null, defaultInputs.map(function (elem, idx) {
         return _react["default"].createElement(_semanticUiReact.Form.Group, {
           widths: "equal",
           key: idx
@@ -298,15 +333,15 @@ function (_React$Component) {
             name: param.bpmParamName
           });
         }));
-      })), !this.props.creatInstance && _react["default"].createElement(_semanticUiReact.Button, {
+      })), this.props.onBack && _react["default"].createElement(_semanticUiReact.Button, {
         floated: "left",
         onClick: function onClick() {
           return _this2.handleSubmit(false);
         }
-      }, "Back"), this.state.process.task.id && _react["default"].createElement(_semanticUiReact.Button, {
+      }, "Back"), this.state.process.task.id && this.props.onCancel && _react["default"].createElement(_semanticUiReact.Button, {
         floated: "left",
         onClick: this.handleCancel
-      }, "Cancel"), this.state.process.task.id && _react["default"].createElement(_semanticUiReact.Button, {
+      }, "Cancel"), this.state.process.task.id && this.props.onNext && _react["default"].createElement(_semanticUiReact.Button, {
         floated: "right",
         onClick: function onClick() {
           return _this2.handleSubmit(true);
@@ -317,7 +352,7 @@ function (_React$Component) {
     }
   }]);
 
-  return DefaultAndRadioButtonsForm;
+  return CustomForm;
 }(_react["default"].Component);
 
-exports["default"] = DefaultAndRadioButtonsForm;
+exports["default"] = CustomForm;

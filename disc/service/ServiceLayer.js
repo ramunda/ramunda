@@ -13,9 +13,20 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+/**
+ * Function responsible for creating a process instance 
+ * @param {*} procDefKey definition key that represent the process to be instantiated
+ * @param {*} variables needed to be processed to instantiate a process
+ */
 function createProcInstService(_x, _x2) {
   return _createProcInstService.apply(this, arguments);
 }
+/**
+ * Function resposible fro completing a task
+ * @param {*} process object containing the information of the process
+ * @param {*} advance value defines if the operation is next task or previous task
+ */
+
 
 function _createProcInstService() {
   _createProcInstService = _asyncToGenerator(
@@ -38,7 +49,7 @@ function _createProcInstService() {
           case 6:
             _context.prev = 6;
             _context.t0 = _context["catch"](0);
-            throw new Error(_context.t0.message);
+            throw new Error('Error communicating with the BPM server when creating a process instance');
 
           case 9:
           case "end":
@@ -53,6 +64,11 @@ function _createProcInstService() {
 function completeTaskService(_x3, _x4) {
   return _completeTaskService.apply(this, arguments);
 }
+/**
+ * Function responsible for canceling a specific process
+ * @param {*} process object containing the information of the process
+ */
+
 
 function _completeTaskService() {
   _completeTaskService = _asyncToGenerator(
@@ -80,7 +96,7 @@ function _completeTaskService() {
           case 8:
             _context2.prev = 8;
             _context2.t0 = _context2["catch"](2);
-            throw new Error(_context2.t0.message);
+            throw new Error('Error communicating with the BPM server when completing a task');
 
           case 11:
           case "end":
@@ -114,7 +130,7 @@ function _cancelProcessSercive() {
           case 6:
             _context3.prev = 6;
             _context3.t0 = _context3["catch"](0);
-            throw new Error(_context3.t0.message);
+            throw new Error('Error communicating with the BPM server when canceling a process');
 
           case 9:
           case "end":

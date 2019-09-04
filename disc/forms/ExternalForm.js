@@ -35,17 +35,20 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var DefaultAndRadioButtonsForm =
+/**
+ * Component that renders a external form
+ */
+var ExternalForm =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(DefaultAndRadioButtonsForm, _React$Component);
+  _inherits(ExternalForm, _React$Component);
 
-  function DefaultAndRadioButtonsForm(props) {
+  function ExternalForm(props) {
     var _this;
 
-    _classCallCheck(this, DefaultAndRadioButtonsForm);
+    _classCallCheck(this, ExternalForm);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(DefaultAndRadioButtonsForm).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ExternalForm).call(this, props));
     _this.state = {
       process: _this.props.process
     };
@@ -53,8 +56,12 @@ function (_React$Component) {
     _this.handleCancel = _this.handleCancel.bind(_assertThisInitialized(_this));
     return _this;
   }
+  /**
+  * In case the props.createInstance is present a process instance is created
+  */
 
-  _createClass(DefaultAndRadioButtonsForm, [{
+
+  _createClass(ExternalForm, [{
     key: "componentDidMount",
     value: function () {
       var _componentDidMount = _asyncToGenerator(
@@ -103,6 +110,14 @@ function (_React$Component) {
 
       return componentDidMount;
     }()
+    /**
+     * Function called from rendered external React component.
+     * If customServer is true, handleSubmit only calls a function passed by the webapp, else its 
+     * also requested a complete task from the BPM server
+     * @param {*} process domain object representing the process instance
+     * @param {*} advance value defines if it is requested the next or the previous task
+     */
+
   }, {
     key: "handleSubmit",
     value: function () {
@@ -114,31 +129,34 @@ function (_React$Component) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.prev = 0;
-                _context2.next = 3;
-                return (0, _ServiceLayer.completeTaskService)(process, advance);
+                if (!(!this.props.onNext && !this.props.onBack)) {
+                  _context2.next = 2;
+                  break;
+                }
 
-              case 3:
-                task = _context2.sent;
-                process.task = task;
+                throw new Error("No function ".concat(advance ? 'next' : 'back', " provided"));
 
-                if (!(this.props.onNext || this.props.onBack)) {
-                  _context2.next = 9;
+              case 2:
+                if (!this.props.customServer) {
+                  _context2.next = 4;
                   break;
                 }
 
                 return _context2.abrupt("return", advance ? this.props.onNext(process) : this.props.onBack(process));
 
-              case 9:
-                throw new Error("No function ".concat(advance ? 'next' : 'back', " provided"));
+              case 4:
+                _context2.prev = 4;
+                _context2.next = 7;
+                return (0, _ServiceLayer.completeTaskService)(process, advance);
 
-              case 10:
-                _context2.next = 15;
-                break;
+              case 7:
+                task = _context2.sent;
+                process.task = task;
+                return _context2.abrupt("return", advance ? this.props.onNext(process) : this.props.onBack(process));
 
               case 12:
                 _context2.prev = 12;
-                _context2.t0 = _context2["catch"](0);
+                _context2.t0 = _context2["catch"](4);
                 this.setState({
                   error: _context2.t0
                 });
@@ -148,7 +166,7 @@ function (_React$Component) {
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[0, 12]]);
+        }, _callee2, this, [[4, 12]]);
       }));
 
       function handleSubmit(_x, _x2) {
@@ -157,48 +175,59 @@ function (_React$Component) {
 
       return handleSubmit;
     }()
+    /**
+     * Function called from rendered external React component.
+     * If customServer is true, handleCancel only calls a function passed by the webapp, else its 
+     * also requested a cancel task from the BPM server
+     * @param {*} process domain object representing the process instance
+     */
+
   }, {
     key: "handleCancel",
     value: function () {
       var _handleCancel = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee3(process) {
-        var ret;
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.prev = 0;
-                _context3.next = 3;
-                return (0, _ServiceLayer.cancelProcessSercive)(process);
+                if (this.props.onCancel) {
+                  _context3.next = 2;
+                  break;
+                }
 
-              case 3:
-                ret = _context3.sent;
+                throw new Error("No function cancel provided");
 
-                if (!this.props.onCancel) {
-                  _context3.next = 6;
+              case 2:
+                if (!this.props.customServer) {
+                  _context3.next = 4;
                   break;
                 }
 
                 return _context3.abrupt("return", this.props.onCancel());
 
-              case 6:
-                _context3.next = 11;
-                break;
+              case 4:
+                _context3.prev = 4;
+                _context3.next = 7;
+                return (0, _ServiceLayer.cancelProcessSercive)(process);
 
-              case 8:
-                _context3.prev = 8;
-                _context3.t0 = _context3["catch"](0);
+              case 7:
+                return _context3.abrupt("return", this.props.onCancel());
+
+              case 10:
+                _context3.prev = 10;
+                _context3.t0 = _context3["catch"](4);
                 this.setState({
                   error: _context3.t0
                 });
 
-              case 11:
+              case 13:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, this, [[0, 8]]);
+        }, _callee3, this, [[4, 10]]);
       }));
 
       function handleCancel(_x3) {
@@ -212,15 +241,15 @@ function (_React$Component) {
     value: function render() {
       return _react["default"].createElement(_react["default"].Fragment, null, this.state.process && !this.state.error && _react["default"].cloneElement(this.props.externalForm, {
         process: this.state.process,
-        onSubmit: this.onSubmit,
-        onCancel: this.onCancel
+        onSubmit: this.handleSubmit,
+        onCancel: this.handleCancel
       }), this.state.error && _react["default"].createElement(_semanticUiReact.Container, null, _react["default"].createElement(_semanticUiReact.Message, {
         negative: true
       }, _react["default"].createElement(_semanticUiReact.Message.Header, null, this.state.error.message))));
     }
   }]);
 
-  return DefaultAndRadioButtonsForm;
+  return ExternalForm;
 }(_react["default"].Component);
 
-exports["default"] = DefaultAndRadioButtonsForm;
+exports["default"] = ExternalForm;

@@ -10,11 +10,12 @@ export function filterDefaultInputs(params, options) {
     if(options && options.radioButtonsInfo) auxDefaultInputs = excludeOtherTypesThanDefault(auxDefaultInputs, options.radioButtonsInfo)
     if(options && options.dropdownInfo) auxDefaultInputs = excludeOtherTypesThanDefault(auxDefaultInputs, options.dropdownInfo)
     if(options && options.checkboxInfo) auxDefaultInputs = excludeOtherTypesThanDefault(auxDefaultInputs, options.checkboxInfo)
-
     return dividePerRows(options && options.defaultInputInfo
-        ? options.defaultInputInfo
-            .filter(elem => auxDefaultInputs.includes(elem.bpmParamName))
-            .map(elem => mapper(params, elem,
+        ? auxDefaultInputs
+            .map(elem => {
+                const option = options.defaultInputInfo.filter(opt => opt.bpmParamName === elem).pop()
+                return option ? option : {bpmParamName: elem}
+            }).map(elem => mapper(params, elem,
                 (defaultInput, inputOptions) => { defaultInput.HtmlType = inputOptions.type ? inputOptions.type : 'text' }
             ))
         : auxDefaultInputs

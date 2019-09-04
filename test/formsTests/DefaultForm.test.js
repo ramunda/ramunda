@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { mount } from 'enzyme'
 import nock from 'nock'
 import { mockCreateRequestSucess, mockNextRequest, mocBackRequest, mockCancelRequest, mockCreateRequestWithError } from '../mockFuntions'
 import mockInfo from '../mockInfo.json'

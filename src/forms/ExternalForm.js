@@ -73,7 +73,7 @@ export default class ExternalForm extends React.Component {
             <React.Fragment>
                 {this.state.process && !this.state.error &&
                     React.cloneElement(this.props.externalForm,
-                        { process: this.state.process, onSubmit: this.onSubmit, onCancel: this.onCancel })
+                        { process: this.state.process, onSubmit: this.handleSubmit, onCancel: this.handleCancel })
                 }
                 {this.state.error &&
                     <Container>

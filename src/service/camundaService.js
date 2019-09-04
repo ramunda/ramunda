@@ -119,7 +119,7 @@ function paramsParser(params, task, readOnly, type){
     params
         .forEach(element => { 
             task.parameters[element.key] = {};
-            task.parameters[element.key].value = element.value ? element.value : ''; 
+            task.parameters[element.key].value = element.value != null ? element.value : ''; 
             task.parameters[element.key].readOnly = readOnly; 
             task.parameters[element.key].type = type 
         }) 

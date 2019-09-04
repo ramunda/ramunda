@@ -8,13 +8,23 @@ exports.filterRadioButtons = filterRadioButtons;
 exports.filterDropdowns = filterDropdowns;
 exports.filterCheckBox = filterCheckBox;
 
+/**
+ * Function responsible for filtering the task´s parameteres for default type
+ * @param {*} params object containing the parameters
+ * @param {*} options object defined by the user specifying the structure of the form
+ */
 function filterDefaultInputs(params, options) {
   var auxDefaultInputs = filterInvisebleInputs(params, options);
   if (options && options.radioButtonsInfo) auxDefaultInputs = excludeOtherTypesThanDefault(auxDefaultInputs, options.radioButtonsInfo);
   if (options && options.dropdownInfo) auxDefaultInputs = excludeOtherTypesThanDefault(auxDefaultInputs, options.dropdownInfo);
   if (options && options.checkboxInfo) auxDefaultInputs = excludeOtherTypesThanDefault(auxDefaultInputs, options.checkboxInfo);
-  return dividePerRows(options && options.defaultInputInfo ? options.defaultInputInfo.filter(function (elem) {
-    return auxDefaultInputs.includes(elem.bpmParamName);
+  return dividePerRows(options && options.defaultInputInfo ? auxDefaultInputs.map(function (elem) {
+    var option = options.defaultInputInfo.filter(function (opt) {
+      return opt.bpmParamName === elem;
+    }).pop();
+    return option ? option : {
+      bpmParamName: elem
+    };
   }).map(function (elem) {
     return mapper(params, elem, function (defaultInput, inputOptions) {
       defaultInput.HtmlType = inputOptions.type ? inputOptions.type : 'text';
@@ -27,6 +37,12 @@ function filterDefaultInputs(params, options) {
     return ret;
   }));
 }
+/**
+ * Function responsible for filtering the task´s parameteres for radio button type
+ * @param {*} params object containing the parameters
+ * @param {*} options object defined by the user specifying the structure of the form
+ */
+
 
 function filterRadioButtons(params, options) {
   return genericFilter(params, options.radioButtonsInfo, options, function (radioBut, inputOptions) {
@@ -35,6 +51,12 @@ function filterRadioButtons(params, options) {
     radioBut.value = params[inputOptions.bpmParamName].value;
   });
 }
+/**
+ * Function responsible for filtering the task´s parameteres for dropdown type
+ * @param {*} params object containing the parameters
+ * @param {*} options object defined by the user specifying the structure of the form
+ */
+
 
 function filterDropdowns(params, options) {
   return genericFilter(params, options.dropdownInfo, options, function (dropdwon, inputOptions) {
@@ -42,10 +64,24 @@ function filterDropdowns(params, options) {
     dropdwon.options = inputOptions.options;
   });
 }
+/**
+ * Function responsible for filtering the task´s parameteres for check box type
+ * @param {*} params object containing the parameters
+ * @param {*} options object defined by the user specifying which parameters are check box type
+ */
+
 
 function filterCheckBox(params, options) {
   return genericFilter(params, options.checkboxInfo, options);
 }
+/**
+ * Utilitary function used to filter the parameters depending on the type of input
+ * @param {*} params object containing the parameters
+ * @param {*} optionsInput object specifying the parameters to be filtered
+ * @param {*} options object defined by the user specifying the structure of the form
+ * @param {*} specificMapperFunction mapper responsible for adding special fields according to the parameter type
+ */
+
 
 function genericFilter(params, optionsInput, options, specificMapperFunction) {
   var visibleInputs = filterInvisebleInputs(params, options);
@@ -55,12 +91,25 @@ function genericFilter(params, optionsInput, options, specificMapperFunction) {
     return mapper(params, elem, specificMapperFunction);
   }) : []);
 }
+/**
+ * Function responsible for filtering inputs that are supposed to be invisible
+ * @param {*} params object containing the parameters
+ * @param {*} options object defined by the user specifying the structure of the form
+ */
+
 
 function filterInvisebleInputs(params, options) {
   return options && options.invisibleParams ? Object.keys(params).filter(function (param) {
     return !options.invisibleParams.includes(param);
   }) : Object.keys(params);
 }
+/**
+ * Mapper that unifies the information received from the server with the option´s information
+ * @param {*} taskparams task parameters information recieved from the server
+ * @param {*} inputOptions information received from options
+ * @param {*} specificMapperFunction mapper responsible for adding special fields according to the parameter type
+ */
+
 
 function mapper(taskparams, inputOptions, specificMapperFunction) {
   var ret = taskparams[inputOptions.bpmParamName];
@@ -69,6 +118,13 @@ function mapper(taskparams, inputOptions, specificMapperFunction) {
   if (specificMapperFunction) specificMapperFunction(ret, inputOptions);
   return ret;
 }
+/**
+ * Utilitary function that separates the inputs that have a special type definied from the ones that
+ * dont have their type definied and therefore are considered default type
+ * @param {*} paramNames parameters name
+ * @param {*} optionsInput object specifying the parameters type
+ */
+
 
 function excludeOtherTypesThanDefault(paramNames, optionsInput) {
   return paramNames.filter(function (paramName) {
@@ -77,6 +133,11 @@ function excludeOtherTypesThanDefault(paramNames, optionsInput) {
     }).pop();
   });
 }
+/**
+ * When all the inputs are gathered they are divided in groups of three
+ * @param {*} arrayInputs object containg all the inputs allready formatted
+ */
+
 
 function dividePerRows(arrayInputs) {
   var retArray = [];

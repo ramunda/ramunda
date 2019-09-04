@@ -97,7 +97,7 @@ export default class DefaultAndRadioButtonsForm extends React.Component {
         return (
             <React.Fragment>
                 {this.state.process && !error &&
-                    <Container>
+                    <React.Fragment>
                         <Form>
                         {defaultInputs.map((elem,idx) =>
                             <Form.Group widths='equal' key={idx}>
@@ -124,16 +124,16 @@ export default class DefaultAndRadioButtonsForm extends React.Component {
                             </Form.Group>
                         )}
                     </Form>
-                        {!this.props.creatInstance &&
+                        {this.props.onBack &&
                             <Button floated="left" onClick={() => this.handleSubmit(false)}>Back</Button>
                         }
-                        {this.state.process.task.id &&
+                        {this.state.process.task.id && this.props.onCancel &&
                             <Button floated="left" onClick={this.handleCancel}>Cancel</Button>
                         }
-                        {this.state.process.task.id &&
+                        {this.state.process.task.id && this.props.onNext &&
                             <Button floated="right" onClick={() => this.handleSubmit(true)}>Next</Button>
                         }
-                    </Container>
+                    </React.Fragment>
                 }
                 {error &&
                     <Container>
