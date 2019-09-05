@@ -69,16 +69,18 @@ function (_React$Component) {
       return _react["default"].createElement(_semanticUiReact.Form.Group, {
         inline: true
       }, _react["default"].createElement("label", null, this.props.label), this.props.buttonsInfo.map(function (elem) {
-        return _react["default"].createElement(_semanticUiReact.Form.Radio, {
+        return _react["default"].createElement(_semanticUiReact.Form.Field, {
+          key: elem.label
+        }, _react["default"].createElement(_semanticUiReact.Checkbox, {
+          radio: true,
           label: elem.label,
-          key: elem.label,
-          id: _this2.props.bpmParamName,
-          name: _this2.props.bpmParamName,
+          id: elem.label,
+          name: elem.label,
           checked: value === elem.value,
           onChange: function onChange() {
             return _this2.handleChange(_this2.props.bpmParamName, elem.value);
           }
-        });
+        }));
       }));
     }
   }]);

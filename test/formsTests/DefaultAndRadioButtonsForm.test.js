@@ -7,6 +7,7 @@ import mockOptions from '../mockOptions.json'
 import testConfig from '../testConfig.json'
 import setBPMconfig from '../../src/service/configBpmServer'
 import '@babel/polyfill'
+import {Checkbox} from 'semantic-ui-react'
 
 import DefaultAndRadioButtonsForm from '../../src/forms/DefaultAndRadioButtonsForm'
 
@@ -35,7 +36,7 @@ describe('Testing Default Form', () => {
   it('Testing if it renders all the camps decribe in the options',async function () {
     const component = mount(<DefaultAndRadioButtonsForm  process={mockInfo.processModelMock} options={mockOptions.firstTask}/>)
 
-    expect(component.find('input#toSum').length).toEqual(2) // Because in options we describe two radio buttons
+    expect(component.find(Checkbox).length).toEqual(2) // Because in options we describe two radio buttons
     expect(component.find('input#n1')).toBeDefined() //Not describe in options object so it takes the default value of DefaultInput 
     expect(component.find('input#n2')).toBeDefined() //Not describe in options object so it takes the default value of DefaultInput
   })

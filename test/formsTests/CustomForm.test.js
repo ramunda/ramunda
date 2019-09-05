@@ -36,7 +36,7 @@ describe('Testing Custom Form', () => {
   it('Testing if it renders all the camps decribe in the options',async function () {
     const component = mount(<CustomForm  process={mockInfo.processModelMock} options={mockOptions.firstTask}/>)
 
-    expect(component.find('input#toSum').length).toEqual(2) // Because in options we describe two radio buttons
+    expect(component.find(Checkbox).length).toEqual(2) // Because in options we describe two radio buttons
     expect(component.find('input#n1')).toBeDefined() //As describe in options object n1 param is a defualtParam 
     expect(component.find('input#n2')).toBeDefined() //As describe in options object n2 param is a defualtParam 
   })
@@ -44,7 +44,7 @@ describe('Testing Custom Form', () => {
   it('Testing if it renders all the camps decribe with a dropdown',async function () {
     const component = mount(<CustomForm  process={mockInfo.processModelMock} options={mockOptions.SecondCustomTask}/>)
 
-    expect(component.find('input#toSum').length).toEqual(2) // Because in options we describe two radio buttons
+    expect(component.find(Checkbox).length).toEqual(2) // Because in options we describe two radio buttons
     expect(component.find('input#n1')).toBeDefined()  
     expect(component.find(Dropdown)).toBeDefined() //See if dropdonw is defined 
   })

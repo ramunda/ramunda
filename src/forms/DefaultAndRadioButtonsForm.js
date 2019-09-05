@@ -93,7 +93,7 @@ export default class DefaultAndRadioButtonsForm extends React.Component {
         } catch (err) {
             error = err
         }
-        
+
         return (
             <React.Fragment>
                 {this.state.process && !error &&

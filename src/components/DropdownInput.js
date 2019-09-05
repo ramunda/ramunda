@@ -39,6 +39,7 @@ export default class DropdownInput extends React.Component {
                     options={this.props.options.map(elem => {
                         return {
                             key: elem,
+                            text: elem,
                             value: elem
                         }
                     })}

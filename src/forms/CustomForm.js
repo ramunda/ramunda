@@ -143,6 +143,7 @@ export default class CustomForm extends React.Component {
                                 {elem.map(param =>
                                     <CheckBoxInput label={param.label}
                                         key={param.bpmParamName}
+                                        initValue={param.value}
                                         handleChange={this.handleChange}
                                         name={param.bpmParamName}
                                     />)}

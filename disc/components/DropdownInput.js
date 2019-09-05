@@ -76,6 +76,7 @@ function (_React$Component) {
         options: this.props.options.map(function (elem) {
           return {
             key: elem,
+            text: elem,
             value: elem
           };
         })

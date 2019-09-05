@@ -329,6 +329,7 @@ function (_React$Component) {
           return _react["default"].createElement(_CheckboxInput["default"], {
             label: param.label,
             key: param.bpmParamName,
+            initValue: param.value,
             handleChange: _this2.handleChange,
             name: param.bpmParamName
           });

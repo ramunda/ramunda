@@ -72,7 +72,9 @@ function filterDropdowns(params, options) {
 
 
 function filterCheckBox(params, options) {
-  return genericFilter(params, options.checkboxInfo, options);
+  return genericFilter(params, options.checkboxInfo, options, function (checkBox, inputOptions) {
+    return checkBox.value = !checkBox.value ? false : true;
+  });
 }
 /**
  * Utilitary function used to filter the parameters depending on the type of input

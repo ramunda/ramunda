@@ -60,7 +60,9 @@ export function filterDropdowns(params, options) {
  * @param {*} options object defined by the user specifying which parameters are check box type
  */
 export function filterCheckBox(params, options) {
-    return genericFilter(params, options.checkboxInfo, options)
+    return genericFilter(params, options.checkboxInfo, options,
+        (checkBox, inputOptions) => checkBox.value = !checkBox.value ? false : true   
+    )
 }
 
 /**

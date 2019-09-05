@@ -31,7 +31,7 @@ export default class CheckboxInput extends React.Component {
                 label={this.props.label}
                 id={this.props.name} 
                 name={this.props.name}
-                checked={value ? true : false}
+                checked={value}
                 onChange={this.handleChange}
             />
         )

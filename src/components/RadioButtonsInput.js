@@ -1,6 +1,6 @@
 import React from 'react';
 import 'semantic-ui-css/semantic.min.css'
-import { Form } from 'semantic-ui-react'
+import { Form, Checkbox } from 'semantic-ui-react'
 
 /**
  * Component for a input of type radio button
@@ -23,22 +23,23 @@ export default class RadioButtonsInput extends React.Component {
     }
 
     render() {
-        const  value = this.state.value
+        const value = this.state.value
         return (
             <Form.Group inline>
                 <label>{this.props.label}</label>
-                {
-                   this.props.buttonsInfo.map(elem =>
-                        <Form.Radio
+                {this.props.buttonsInfo.map(elem =>
+                    <Form.Field key={elem.label}>
+                        <Checkbox
+                            radio
                             label={elem.label}
-                            key={elem.label}
-                            id={this.props.bpmParamName}
-                            name={this.props.bpmParamName}
+                            id={elem.label}
+                            name={elem.label}
                             checked={value === elem.value}
-                            onChange={() => this.handleChange(this.props.bpmParamName, elem.value)}
+                            onChange={() => this.handleChange(this.props.bpmParamName,elem.value)}
                         />
-                    )
-                }
+                    </Form.Field>
+                )}
+
             </Form.Group>
         )
     }
