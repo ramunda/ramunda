@@ -47,8 +47,8 @@ If you want to implement a different server you only have to obey one rule. The 
 	"procInstId": "process instance id",
 	"variables": [{"key": "varName","value": varValue}],
 	"milestones": [
-		"Input",
-		"Show Result"
+		"milestoneName1",
+		"milestoneName2"
 	],
 	"activeTask": {
 		"id": "task id",
@@ -64,7 +64,7 @@ If you want to implement a different server you only have to obey one rule. The 
 				"value": paramValue
 			}
 		],
-		"milestone": "Input"
+		"milestone": "milestoneName1"
 	}
 }
 ```
@@ -85,7 +85,7 @@ If you want to implement a different server you only have to obey one rule. The 
 			"value": paramValue
 		}
 	],
-	"milestone": "Show Result"
+	"milestone": "milestoneName2"
 }
 ```
 
@@ -116,9 +116,9 @@ The object that describes the urls from the BPM support server must contain the 
 
 Ramunda provides four forms:  DefaultForm, DefaultandRadioButtonsForm, CustomForm and ExternalForm.
 
-| Form                  | Explained                                                                                                   |
+| Form                  | Explanation                                                                                                   |
 | :--------------------------- | :------------------------------------------------------------------------------------------------------------------ |
-| Default form                       |   Defines a form where every parameter of the task are represent as simple HTML inputs                                 | 
+| Default form                       |   Defines a form where every parameter of the task is represented as simple HTML inputs                                 | 
 | DefaultandRadioButtonsForm             | Defines a form where the task´s parameters can be simple HTML inputs or radio buttons, depending on the specification |
 | CustomForm             | Defines a form where the task´s parameters can be simple HTML inputs, radio buttons, dropdowns or checkboxes       | 
 | ExternalForm | Defines a form that renders an external React component given in the props. |
@@ -126,16 +126,16 @@ Ramunda provides four forms:  DefaultForm, DefaultandRadioButtonsForm, CustomFor
 
 
 #### Passing props to the forms
-To control the behaviour of the form it is necessary that some information is given to the React component through its props.
+To control the behavior of the form it is necessary that some information is given to the React component through its props.
 Here they are:
 
-- **createInstance**: Defines if the component need to create a process instance. (Opcional)
+- **createInstance**: Defines if the component needs to create a process instance. (Optional)
 
-- **procDefKey**: Key that defines a process, if it is necessary to create a new instance of the process, this key identifies that process. (Opcional)
+- **procDefKey**: Key that defines a process, if it is necessary to create a new instance of the process, this key identifies that process. (Optional)
 
-- **variables**: Variables to instatiate a process. (Opcional)
+- **variables**: Variables to instantiate a process. (Optional)
 
-- **process**: Object that represents a process instance. Must be defined as the following: (Opcional)
+- **process**: Object that represents a process instance. Must be defined as the following: (Optional)
 ```
 {
 	"processId": "process instance id",
@@ -148,22 +148,22 @@ Here they are:
 				"type": "w" // 'w' if it's a inputParamter and 'r' if it's a outputParameter 
 			}
 		},
-		"milestone": "Input"
+		"milestone": "milestoneName1"
 	},
 	"milestones": [
-		"Input",
-		"Show Result"
+		"milestoneName1",
+		"milestoneName2"
 	]
 }
 ```
 
-- **customServer**: Boolean variable that defines if the user wants to use the library to communicate with the BPM support server. (Opcional)
+- **customServer**: Boolean variable that defines if the user wants to use the library to communicate with the BPM support server. (Optional)
 
-- **onNext**: Function called as soon as the HTTP request to the server to complete a task is successfull and it is intended to progress with the work flow, or in case of the propertie customServer being true the function is called as the Next button is pressed. The Next button is only going to be available while the process has an active task in the process object and the next function is defined.
+- **onNext**: Function called as soon as the HTTP request to the server to complete a task is successful and it is intended to progress with the workflow, or in case of the property customServer being true the function is called as the Next button is pressed. The Next button is only going to be available while the process has an active task in the process object and the next function is defined.
 
-- **onBack**: Function called as soon as the HTTP request to the server to complete a task is successfull and it is intended to regress with the work flow,  or in case of the propertie customServer being true the function is called as the Back button is pressed. The Back button is only going to be available when the back function is defined.
+- **onBack**: Function called as soon as the HTTP request to the server to complete a task is successfull and it is intended to regress with the workflow,  or in case of the property customServer being true the function is called as the Back button is pressed. The Back button is only going to be available when the back function is defined.
 
-- **onCancel**: Function called as soon as the HTTP request to the server to cancel a process is successfull, or in case of the propertie customServer being true the function is called as the Cancel button is pressed and the cancel function is defined.
+- **onCancel**: Function called as soon as the HTTP request to the server to cancel a process is successfull, or in case of the property customServer being true the function is called as the Cancel button is pressed and the cancel function is defined.
 
 - **externalForm**: Instantiate a React component that will be rendered is case of externalForm being used. (Optional)
 
@@ -173,32 +173,32 @@ Here they are:
 {
 	"invisibleParams": [{
 		"bpmParamName": "..",
-		"value": "opicional" 
+		"value": "optional" 
 	}],
 	"radioButtonsInfo":[{
 		"bpmParamName": "...",
-		"label": "opicional",
+		"label": "optional",
 		"buttonsInfo": [{"label":"..", "value": true},{"label":"..", "value": false}]	
 	}],
 	"checkboxInfo":[{
 		"bpmParamName": "...",
-		"label": "opicional"
+		"label": "optional"
 	}],
 	"dropdownInfo":[{
 		"bpmParamName": "...",
-		"label": "opicional",
+		"label": "optional",
 		"options": ["..",".."]
 	}],
 	"defaultInputInfo": [{
 		"bpmParamName": "...",
-		"label": "opicional",
+		"label": "optional",
 		"type": "default value text" 
 	}]
 }
 ```
 
 ## Examples
-The following illustrations represent the criation of a form and the produced view. You can also found an example web application (https://github.com/ramunda/ramunda-webapp-example) using Ramunda and a BPM support server (https://github.com/ramunda/camunda-server-examples) where three processes are already defined.
+The following illustrations represent the creation of a form and the produced view. You can also find an example web application (https://github.com/ramunda/ramunda-webapp-example) using Ramunda and a BPM support server (https://github.com/ramunda/camunda-server-examples) where three processes are already defined.
 
 ```
 {
